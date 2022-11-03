@@ -6,7 +6,7 @@ var arr = [
     },
     {
         "Name": "Scraping Content",
-        "Time": 5,
+        "Time": 10,
         "Divisions": 5
     },
     {
