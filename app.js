@@ -109,6 +109,7 @@ function percentage() {
         var timeInterval = setInterval(function(){
             listItem[value].setAttribute('data-value', `... ${z}%`);
             if(z == 100){
+                listItem[value].setAttribute('data-value', "✔");
                 clearInterval(timeInterval);
             }
             z++;
