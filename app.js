@@ -67,6 +67,10 @@ btn.addEventListener('click', labelRender);
 btn.addEventListener('click', percentage);
 
 function labelRender() {
+    let container = document.querySelector(".collection");
+    if (container.hasChildNodes()) {
+        container.innerHTML = "";
+    }
     for (let i = 0; i < arr.length; i++) {
         var list = document.createElement('li');
         list.setAttribute('class', 'label');
@@ -77,22 +81,24 @@ function labelRender() {
 }
 
 function percentage() {
-    var delayArr = [];
+    // var delayArr = [];
+    var round = [];
     var count = [];
     var listItem = [];
-    var delay = [];
+    // var delay = [];
+    var timeLaps = [];
     var time = [];
     // var div = [];
     count[0] = 0;
 
     for (let label = 0; label < arr.length; label++) {
-        var timeLaps = (arr[label].Time / arr[label].Divisions) * 1000;
-        var round = 100 / arr[label].Divisions;
+        timeLaps[label] = (arr[label].Time / arr[label].Divisions) * 1000;
+        round[label] = 100 / arr[label].Divisions;
         time[label] = (arr[label].Time * 1000);
-        delay[label] = timeLaps / round;
+        // delay[label] = timeLaps / round;
         listItem[label] = collection.children[label];
         // div[label] = arr[label].Divisions;
-        delayArr[label] = timeLaps / round;
+        // delayArr[label] = timeLaps / round;
         if(label == 0){
             continue;
         }
@@ -105,19 +111,25 @@ function percentage() {
 
     function set(value){
 
-        var z = 1;
+        var z = round[value];
         var timeInterval = setInterval(function(){
             listItem[value].setAttribute('data-value', `... ${z}%`);
             if(z == 100){
+                if(value != 0){
+                    listItem[value - 1].style.borderLeft = "2px solid #478bf9";
+                }
                 listItem[value].setAttribute('data-value', "✔");
+                listItem[value].style.setProperty('--backgroundColor', '#478bf9');
                 clearInterval(timeInterval);
             }
-            z++;
-        }, time[value]/100)
+            z += round[value];
+        }, timeLaps[value])
         if(value == arr.length - 1){
             setTimeout(function(){
-                load.style.animation = 'none';
-                // load.style.display = 'none';
+            // load.style.animation = 'none';
+            load.style.display = 'none';
+            btn.value = "Analyze";
+            btn.style.opacity = 1;
             }, arr[value].Time * 1000)
         }
    }

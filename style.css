@@ -9,6 +9,10 @@ body{
     background-color: rgb(245 239 239);
 }
 
+:root{
+    --backgroundColor: #a7a3a3;
+}
+
 .wrapper{
     margin: 0 auto;
     padding: 20px 10px 20px;
@@ -91,7 +95,7 @@ body{
     left: -7px;
     width: 12px;
     height: 12px;
-    background-color: #a7a3a3;
+    background-color: var(--backgroundColor);
     border-radius: 50%;
 }
 
